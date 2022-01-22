@@ -1,7 +1,5 @@
 <template >
   <div class="register-wrapper">
-    <h1>ADD A NEW CARD BANK</h1>
-
     <form @keyup="submitCardInfo">
       <label for="CARD NUMBER">CARD NUMBER</label>
       <input
@@ -13,7 +11,7 @@
       <label for="CARDHOLDER NAME">CARDHOLDER NAME</label>
       <input
         type="text"
-        placeholder="Cardholder Name"
+        placeholder="Firstname Lastname"
         v-model="cardInfo.cardHolder"
       />
 
@@ -26,13 +24,13 @@
             </option>
           </select>
         </div>
+
         <div>
           <label for="Year">Year</label>
           <select name="dropdown" id="" v-model="cardInfo.expireYear">
-            <option value=""  v-for="n in 5" :key="n">
-                   {{ n + 21}}
+            <option value="" v-for="n in 5" :key="n">
+              {{ n + 21 }}
             </option>
-       
           </select>
         </div>
       </section>
@@ -48,7 +46,7 @@
         <option value="">Ninja Bank</option>
       </select>
 
-      <button @submit.prevent="submitCard">Add Card</button>
+      <button @submit.prevent="$emit('submitCard', cardInfo)">Add Card</button>
     </form>
   </div>
 </template>
@@ -69,7 +67,6 @@ export default {
   },
   methods: {
     submitCardInfo() {
-      //    this.$emit('register', this.cardInfo)
       this.$emit("send", { ...this.cardInfo });
     },
   },
@@ -78,45 +75,47 @@ export default {
 
 <style lang="scss" scoped>
 .register-wrapper {
-  // border: 2px solid black;
-
   h1 {
     margin-top: 4rem;
   }
   form {
     margin-top: 2rem;
     display: flex;
-    // padding: 1rem;
     flex-direction: column;
-    // border: 2px solid black;
 
     input {
       padding: 9px 20px;
+      border-radius: 5px;
+      border: 1px solid black;
     }
     label {
       font-size: 0.8rem;
-      // margin: 0.6rem 0.6rem 0.6rem 0;
       margin: 0.8rem 0 0.2rem 0;
-      align-self: flex-start;
     }
     select {
       padding: 9px 40px;
+      border-radius: 5px;
+      border: 1px solid black;
     }
     .valid-through {
       display: flex;
       justify-content: space-between;
-    }
-    .valid-through div {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      width: 50%;
-      //  select {
 
-      //       margin-left: 2rem;
-      //     }
-      label {
-        font-size: 0.8rem;
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+
+        label {
+          font-size: 0.8rem;
+        }
+
+        select {
+          padding: 9px 60px;
+          border-radius: 5px;
+          border: 1px solid black;
+        }
       }
     }
   }
@@ -128,6 +127,7 @@ export default {
     font-size: 1rem;
     text-align: center;
     line-height: 2.5em;
+    border-radius: 5px;
 
     &:hover {
       background-color: rgb(41, 40, 40);

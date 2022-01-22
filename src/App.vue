@@ -1,22 +1,22 @@
 <template>
   <div id="app">
     <nav>
-      <a @click="currentView = 'e-wallet'">E-wallet</a>
+      <a @click="currentView = 'home'">E-wallet</a>
       <a @click="currentView = 'add-card'">Add Card</a>
     </nav>
-    <Card v-if="currentView == 'add-card'" />
-    <CardsInWallet v-else-if="currentView == 'e-wallet'" />
+    <AddNewCard v-if="currentView == 'add-card'" />
+    <Home v-else-if="currentView == 'home'" />
   </div>
 </template>
 
 <script>
-import Card from "./views/Card.vue";
-import CardsInWallet from "./views/CardsInWallet.vue";
+import AddNewCard from "./views/AddNewCard.vue";
+import Home from "./views/Home.vue";
 export default {
-  components: { Card, CardsInWallet },
+  components: { AddNewCard, Home },
   data() {
     return {
-      currentView: "e-wallet",
+      currentView: "home",
     };
   },
 
@@ -40,7 +40,7 @@ $activeColor: rgba(235, 235, 235, 0.384);
      margin-top: 4rem;
   }
   p {
-    font-family: "Red Hat Display", sans-serif;
+    font-family: "PT Mono', monospace", sans-serif;
   }
   nav {
     display: flex;

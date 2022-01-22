@@ -1,5 +1,7 @@
 <template>
   <div class="card">
+    <h1>ADD A NEW CARD BANK</h1>
+
     <article class="active-card">
       <section class="top-logo">
         <div class="logo">
@@ -20,14 +22,21 @@
         </div>
       </section>
 
-      <div>
-        <p class="card-number">{{ cardInfo.cardNumber }}</p>
+      <div class="card-number">
+        <p>{{ cardInfo.cardNumber }}</p>
       </div>
-      <p class="cardholder-name">{{ cardInfo.cardHolder }}</p>
-      <p class="month">{{ cardInfo.expireMonth }}</p>
-      <p class="year">{{ cardInfo.expireYear }}</p>
+      <section class="bottom-section">
+        <div>
+          <p class="cardholder-name">Cardholder Name</p>
+          <p>{{ cardInfo.cardHolder }}</p>
+        </div>
+        <div>
+          <p class="valid-thru">Valid Thru</p>
+          <p>MM/YY</p>
+          <!-- <p> {{ cardInfo.expireMonth}} / {{cardInfo.expireYear }}</p> -->
+        </div>
+      </section>
       <p class="ccv">{{ cardInfo.CCV }}</p>
-      <!-- <p class="vendor"  v-for="item in cardInfo.vendor" :key="item">{{item}}</p> -->
     </article>
 
     <RegisterCard @send="register" />
@@ -35,7 +44,7 @@
 </template>
 
 <script>
-import RegisterCard from "../components/RegisterCard.vue";
+import RegisterCard from "./RegisterCard.vue";
 export default {
   components: { RegisterCard },
   data() {
@@ -46,8 +55,11 @@ export default {
   methods: {
     register(cardInfo) {
       this.cardInfo = { ...cardInfo };
-      console.log(cardInfo);
+      // console.log(cardInfo);
     },
+    // submitCard(cardInfo) {
+    //   this.$emit("addCardToList", cardInfo);
+    // },
   },
 };
 </script>
@@ -58,6 +70,7 @@ export default {
   height: 250px;
   background-color: rgba(235, 235, 235, 0.472);
   margin-top: 3rem;
+
   .top-logo {
     display: flex;
     justify-content: space-between;
@@ -68,10 +81,39 @@ export default {
   }
   div p {
     padding: 0 1rem;
-
     margin-top: 1rem;
     font-weight: 800;
     font-size: 1.2rem;
+  }
+  div p:nth-child(2) {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .card-number {
+    height: 50px;
+  }
+  .bottom-section {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      font-size: 0.7rem;
+      font-weight: normal;
+    }
+  }
+}
+button {
+  margin-top: 2rem;
+  padding: 0 10.5rem;
+  color: white;
+  background-color: black;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 2.5em;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: rgb(41, 40, 40);
   }
 }
 </style>
