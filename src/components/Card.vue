@@ -2,23 +2,18 @@
   <div class="card">
     <h1>ADD A NEW CARD BANK</h1>
 
-    <article class="active-card">
+    <article  :class="color">
       <section class="top-logo">
         <div class="logo">
           <div>
-            <img src="../assets/wifi.svg" alt="wifi-logo" />
+            <img :src="wifi" alt="wifi-logo"  width="44" height="44"/>
           </div>
           <div>
-            <img src="../assets/chip.svg" alt="wifi-logo" />
+            <img src="../assets/chip.svg" alt="chip-logo" />
           </div>
         </div>
         <div>
-          <img
-            class="card-logo"
-            width="50"
-            src="../assets/bitcoin.svg"
-            alt="bitcoin-logo"
-          />
+          <img  width="50" :src="logo" alt="vendor-logo" />
         </div>
       </section>
 
@@ -32,11 +27,11 @@
         </div>
         <div>
           <p class="valid-thru">Valid Thru</p>
-          <p>MM/YY</p>
-          <!-- <p> {{ cardInfo.expireMonth}} / {{cardInfo.expireYear }}</p> -->
+          <!-- <p>MM/YY</p> -->
+          <p>{{ cardInfo.expireMonth }} / {{ cardInfo.expireYear }}</p>
         </div>
       </section>
-      <p class="ccv">{{ cardInfo.CCV }}</p>
+      <p class="cvc">{{ cardInfo.CVC }}</p>
     </article>
 
     <RegisterCard @send="register" />
@@ -50,22 +45,82 @@ export default {
   data() {
     return {
       cardInfo: {},
+      color:"",
+      logo: "",
+      wifi: "",
+      wifiArray: {
+          regularWifi: '../assets/wifi_white.svg',
+          whiteWifi: '../assets/wifi.svg'
+        }
     };
   },
   methods: {
     register(cardInfo) {
       this.cardInfo = { ...cardInfo };
-      // console.log(cardInfo);
+      this.selectVendor(cardInfo)
     },
-    // submitCard(cardInfo) {
-    //   this.$emit("addCardToList", cardInfo);
-    // },
+    selectVendor(cardInfo){
+      this.logo = require('../assets/' + cardInfo.vendor + '.svg') 
+      this.wifi = require('../assets/' + 'wifi_white' + '.svg') 
+      this.color = cardInfo.vendor
+    },
   },
+  beforeMount(){
+      if(this.logo == '' && this.vendor == null){
+        this.logo = require('../assets/bitcoin.svg')
+        this.wifi = require('../assets/wifi.svg')
+      }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.active-card {
+.evil {
+  background: linear-gradient(
+      248.3deg,
+      rgba(0, 0, 0, 0.16) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    #f33355;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  p{
+    color: white;
+  }
+}
+.bitcoin {
+  background: linear-gradient(
+      248.04deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0) 99.07%
+    ),
+    #ffae34;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+}
+.ninja {
+  background: linear-gradient(
+      248.3deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #222222;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    p{
+    color: white;
+  }
+}
+.blockchain {
+  background: linear-gradient(
+      248.52deg,
+      rgba(0, 0, 0, 0.15) 1.49%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    #8b58f9;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    p{
+    color: white;
+  }
+}
+article {
   width: 400px;
   height: 250px;
   background-color: rgba(235, 235, 235, 0.472);
@@ -99,6 +154,7 @@ export default {
     p {
       font-size: 0.7rem;
       font-weight: normal;
+      margin: 0;
     }
   }
 }

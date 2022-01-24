@@ -1,25 +1,34 @@
 <template >
   <div class="register-wrapper">
-    <form @keyup="submitCardInfo">
+    <form @submit.prevent="$emit('submitCard', cardInfo)">
       <label for="CARD NUMBER">CARD NUMBER</label>
       <input
-        type="number"
+        type="text"
+        maxlength="19"
         placeholder="Card Number"
-        v-model.number="cardInfo.cardNumber"
+        v-model="cardInfo.cardNumber"
+        @keyup="submitCardInfo"
       />
 
       <label for="CARDHOLDER NAME">CARDHOLDER NAME</label>
       <input
         type="text"
+        maxlength="20"
         placeholder="Firstname Lastname"
         v-model="cardInfo.cardHolder"
+        @keyup="submitCardInfo"
       />
 
       <section class="valid-through">
         <div>
           <label for="Month">Month</label>
-          <select name="dropdown" id="" v-model="cardInfo.expireMonth">
-            <option value="" v-for="n in 12" :key="n">
+          <select
+            name="dropdown"
+            id=""
+            v-model="cardInfo.expireMonth"
+            @change="submitCardInfo"
+          >
+            <option v-for="n in 12" :key="n">
               {{ n }}
             </option>
           </select>
@@ -27,26 +36,35 @@
 
         <div>
           <label for="Year">Year</label>
-          <select name="dropdown" id="" v-model="cardInfo.expireYear">
-            <option value="" v-for="n in 5" :key="n">
-              {{ n + 21 }}
+          <select
+            name="dropdown"
+            id=""
+            v-model="cardInfo.expireYear"
+            @change="submitCardInfo"
+          >
+            <option v-for="year in 5" :key="year">
+              {{ year + 21 }}
             </option>
           </select>
         </div>
       </section>
 
-      <label for="CCV">CCV</label>
-      <input type="text" placeholder="CCV" v-model="cardInfo.CCV" />
+      <label for="CVC">CVC</label>
+      <input type="text" placeholder="CCV" v-model="cardInfo.CVC" />
       <label for="VENDOR">VENDOR</label>
-      <!-- <select name="dropdown" id="" v-model="cardInfo.vendor"></select> -->
-      <select name="dropdown" id="">
-        <option value="">Bitcoin Inc</option>
-        <option value="">Blockchain Inc</option>
-        <option value="">Evil Corp</option>
-        <option value="">Ninja Bank</option>
+
+      <select
+        name="dropdown"
+        id=""
+        v-model="cardInfo.vendor"
+        @change="submitCardInfo"
+      >
+        <option v-for="vendor in vendorArray" :key="vendor">
+          {{ vendor }}
+        </option>
       </select>
 
-      <button @submit.prevent="$emit('submitCard', cardInfo)">Add Card</button>
+      <button>Add Card</button>
     </form>
   </div>
 </template>
@@ -60,15 +78,25 @@ export default {
         cardHolder: "",
         expireMonth: "",
         expireYear: "",
-        CCV: "",
+        CVC: "",
         vendor: "",
       },
+      vendorArray: ["bitcoin", "blockchain", "evil", "ninja"],
     };
   },
   methods: {
     submitCardInfo() {
-      this.$emit("send", { ...this.cardInfo });
+        if (
+          this.cardInfo.cardNumber.length === 4 ||
+          this.cardInfo.cardNumber.length === 9 ||
+          this.cardInfo.cardNumber.length === 14
+        ) {
+          this.cardInfo.cardNumber += " ";
+          console.log("helloooo");
+        }
+        this.$emit("send", this.cardInfo);
     },
+
   },
 };
 </script>
@@ -82,6 +110,10 @@ export default {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
+
+    p{
+      color: red;
+    }
 
     input {
       padding: 9px 20px;

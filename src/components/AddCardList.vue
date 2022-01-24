@@ -2,7 +2,7 @@
     <div class="add-card-to-wallet">
 
         
-   <Card @addCard="addCardToList" />
+   <Card @submitCard="addCardToList" />
 
     </div>
 </template>
