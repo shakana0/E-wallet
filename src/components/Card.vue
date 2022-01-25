@@ -1,76 +1,62 @@
 <template>
   <div class="card">
-    <h1>ADD A NEW CARD BANK</h1>
 
-    <article  :class="color">
+    <article :class="renderCard.vendor" @click="$emit('active', renderCard)" >
       <section class="top-logo">
         <div class="logo">
           <div>
-            <img :src="wifi" alt="wifi-logo"  width="44" height="44"/>
+            <img :src="wifiPath" alt="wifi-logo" width="44" height="44" />
           </div>
           <div>
             <img src="../assets/chip.svg" alt="chip-logo" />
           </div>
         </div>
         <div>
-          <img  width="50" :src="logo" alt="vendor-logo" />
+          <img width="50" :src="logoPath" alt="vendor-logo" />
         </div>
       </section>
 
       <div class="card-number">
-        <p>{{ cardInfo.cardNumber }}</p>
+        <p>{{ renderCard.cardNumber }}</p>
       </div>
       <section class="bottom-section">
         <div>
           <p class="cardholder-name">Cardholder Name</p>
-          <p>{{ cardInfo.cardHolder }}</p>
+          <p>{{ renderCard.cardHolder }}</p>
         </div>
         <div>
           <p class="valid-thru">Valid Thru</p>
           <!-- <p>MM/YY</p> -->
-          <p>{{ cardInfo.expireMonth }} / {{ cardInfo.expireYear }}</p>
+          <p>{{ renderCard.expireMonth }} / {{ renderCard.expireYear }}</p>
         </div>
       </section>
-      <p class="cvc">{{ cardInfo.CVC }}</p>
+      <p class="cvc">{{ renderCard.CVC }}</p>
     </article>
-
-    <RegisterCard @send="register" />
   </div>
 </template>
 
 <script>
-import RegisterCard from "./RegisterCard.vue";
 export default {
-  components: { RegisterCard },
-  data() {
-    return {
-      cardInfo: {},
-      color:"",
-      logo: "",
-      wifi: "",
-      wifiArray: {
-          regularWifi: '../assets/wifi_white.svg',
-          whiteWifi: '../assets/wifi.svg'
-        }
-    };
-  },
-  methods: {
-    register(cardInfo) {
-      this.cardInfo = { ...cardInfo };
-      this.selectVendor(cardInfo)
-    },
-    selectVendor(cardInfo){
-      this.logo = require('../assets/' + cardInfo.vendor + '.svg') 
-      this.wifi = require('../assets/' + 'wifi_white' + '.svg') 
-      this.color = cardInfo.vendor
-    },
-  },
-  beforeMount(){
-      if(this.logo == '' && this.vendor == null){
-        this.logo = require('../assets/bitcoin.svg')
-        this.wifi = require('../assets/wifi.svg')
+  props: ["renderCard"],
+  
+  computed: {
+    logoPath() {
+      if (!this.renderCard.vendor) {
+        return require('../assets/bitcoin.svg');
       }
-  }
+      return (
+        require("../assets/" + this.renderCard.vendor + ".svg")
+        );
+    },
+    wifiPath(){
+       if (!this.renderCard.vendor || this.renderCard.vendor == 'ninja' ){
+         return require("../assets/wifi_white.svg")
+       }
+       return (
+        require("../assets/wifi.svg")
+        );
+    }
+  },
 };
 </script>
 
@@ -83,7 +69,7 @@ export default {
     ),
     #f33355;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-  p{
+  p {
     color: white;
   }
 }
@@ -104,7 +90,7 @@ export default {
     ),
     #222222;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-    p{
+  p {
     color: white;
   }
 }
@@ -116,7 +102,7 @@ export default {
     ),
     #8b58f9;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-    p{
+  p {
     color: white;
   }
 }

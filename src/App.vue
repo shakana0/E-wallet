@@ -4,8 +4,12 @@
       <a @click="currentView = 'home'">E-wallet</a>
       <a @click="currentView = 'add-card'">Add Card</a>
     </nav>
-    <AddNewCard v-if="currentView == 'add-card'" />
-    <Home v-else-if="currentView == 'home'" />
+    <AddNewCard
+      v-if="currentView == 'add-card'"
+      @submittedCard="addCardToList"
+    />
+
+    <Home v-else-if="currentView == 'home'" :cardArray="cardList"/>
   </div>
 </template>
 
@@ -17,9 +21,15 @@ export default {
   data() {
     return {
       currentView: "home",
+      cardList: [],
     };
   },
-
+  methods: {
+    addCardToList(cardInfo) {
+      this.cardList.push(cardInfo);
+      console.log(this.cardList);
+    },
+  },
 };
 </script>
 
@@ -37,7 +47,7 @@ $activeColor: rgba(235, 235, 235, 0.384);
   h1 {
     font-family: "Red Hat Display", sans-serif;
     font-weight: 800;
-     margin-top: 4rem;
+    margin-top: 4rem;
   }
   p {
     font-family: "PT Mono', monospace", sans-serif;

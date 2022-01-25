@@ -1,14 +1,19 @@
 <template>
     <div>
 
-        <Card />
+        <RegisterCard @submitCard="submittedCard"/>
     </div>
 </template>
 
 <script>
-import Card from '../components/Card.vue'
+import RegisterCard from '../components/RegisterCard.vue'
 export default {
-    components:{Card}
+    components:{RegisterCard},
+    methods:{
+submittedCard(cardInfo){
+this.$emit('submittedCard', cardInfo)
+}
+    }
 }
 </script>
 

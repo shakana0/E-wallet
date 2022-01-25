@@ -1,5 +1,9 @@
 <template >
-  <div class="register-wrapper">
+  <div class="register-wrapper"  v-if="currentView == 'add-card'">
+        <h1>ADD A NEW CARD BANK</h1>
+
+     <Card :renderCard="cardInfo"/>
+
     <form @submit.prevent="$emit('submitCard', cardInfo)">
       <label for="CARD NUMBER">CARD NUMBER</label>
       <input
@@ -59,20 +63,24 @@
         v-model="cardInfo.vendor"
         @change="submitCardInfo"
       >
-        <option v-for="vendor in vendorArray" :key="vendor">
-          {{ vendor }}
+        <option v-for="vendor in vendorArray" :key="vendor" :value="vendor">
+          {{vendor.split('').reverse().join('')}}
         </option>
       </select>
 
-      <button>Add Card</button>
+      <button @click="currentView === 'home'">Add Card</button>
     </form>
+   
   </div>
 </template>
 
 <script>
+import Card from './Card.vue'
 export default {
+  components: {Card},
   data() {
     return {
+      currentView: 'add-card',
       cardInfo: {
         cardNumber: "",
         cardHolder: "",
@@ -85,6 +93,7 @@ export default {
     };
   },
   methods: {
+    // FLYTTA TILL CARD!!!!!!!!!!!!!!!!!!!!
     submitCardInfo() {
         if (
           this.cardInfo.cardNumber.length === 4 ||
@@ -94,6 +103,7 @@ export default {
           this.cardInfo.cardNumber += " ";
           console.log("helloooo");
         }
+        // this.emit('renderCard', this.cardInfo)
         this.$emit("send", this.cardInfo);
     },
 
