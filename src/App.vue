@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <nav>
-      <a @click="currentView = 'home'">E-wallet</a>
-      <a @click="currentView = 'add-card'">Add Card</a>
+      <a @click="currentView = 'home'">Home</a>
+      <a @click="currentView = 'add-card'">Add New Card</a>
     </nav>
     <AddNewCard
       v-if="currentView == 'add-card'"
       @submittedCard="addCardToList"
+      @changePage="homeView"
     />
 
-    <Home v-else-if="currentView == 'home'" :cardArray="cardList"/>
+    <Home
+      v-else-if="currentView == 'home'"
+      :cardArray="cardList"
+      @changePage="addCardView"
+    />
   </div>
 </template>
 
@@ -25,10 +30,25 @@ export default {
     };
   },
   methods: {
+    addCardView() {
+      this.currentView = "add-card";
+    },
     addCardToList(cardInfo) {
       this.cardList.push(cardInfo);
-      console.log(this.cardList);
+      this.persist();
     },
+    homeView() {
+      this.currentView = "home";
+    },
+
+    persist() {
+      localStorage.setItem("cards", JSON.stringify(this.cardList));
+    },
+  },
+
+  beforeMount() {
+    if (localStorage.getItem("cards"))
+      this.cardList = JSON.parse(localStorage.getItem("cards"));
   },
 };
 </script>
@@ -44,7 +64,7 @@ $activeColor: rgba(235, 235, 235, 0.384);
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  h1 {
+  padding: 0 2rem h1 {
     font-family: "Red Hat Display", sans-serif;
     font-weight: 800;
     margin-top: 4rem;

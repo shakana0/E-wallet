@@ -1,7 +1,6 @@
 <template>
   <div class="card">
-
-    <article :class="renderCard.vendor" @click="$emit('active', renderCard)" >
+    <article :class="renderCard.vendor" @click="$emit('active', renderCard)">
       <section class="top-logo">
         <div class="logo">
           <div>
@@ -17,7 +16,7 @@
       </section>
 
       <div class="card-number">
-        <p>{{ renderCard.cardNumber }}</p>
+        <p>{{ checkCardNum }}</p>
       </div>
       <section class="bottom-section">
         <div>
@@ -26,7 +25,6 @@
         </div>
         <div>
           <p class="valid-thru">Valid Thru</p>
-          <!-- <p>MM/YY</p> -->
           <p>{{ renderCard.expireMonth }} / {{ renderCard.expireYear }}</p>
         </div>
       </section>
@@ -38,29 +36,43 @@
 <script>
 export default {
   props: ["renderCard"],
-  
+  data() {
+    return {};
+  },
+  methods: {},
   computed: {
     logoPath() {
       if (!this.renderCard.vendor) {
-        return require('../assets/bitcoin.svg');
+        return require("../assets/bitcoin.svg");
       }
-      return (
-        require("../assets/" + this.renderCard.vendor + ".svg")
-        );
+      return require("../assets/" + this.renderCard.vendor + ".svg");
     },
-    wifiPath(){
-       if (!this.renderCard.vendor || this.renderCard.vendor == 'ninja' ){
-         return require("../assets/wifi_white.svg")
-       }
-       return (
-        require("../assets/wifi.svg")
-        );
-    }
+
+    wifiPath() {
+      if (this.renderCard.vendor == "ninja") {
+        return require("../assets/wifi_white.svg");
+      }
+      return require("../assets/wifi.svg");
+    },
+    checkCardNum() {
+      let outPut = "";
+      for (let i = 0; i < this.renderCard.cardNumber.length; i++) {
+        outPut += this.renderCard.cardNumber[i];
+        if ((i + 1) % 4 == 0) {
+          outPut += " ";
+        }
+      }
+      return outPut;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.close {
+  background-color: transparent;
+  border: none;
+}
 .evil {
   background: linear-gradient(
       248.3deg,
@@ -142,20 +154,6 @@ article {
       font-weight: normal;
       margin: 0;
     }
-  }
-}
-button {
-  margin-top: 2rem;
-  padding: 0 10.5rem;
-  color: white;
-  background-color: black;
-  font-size: 1rem;
-  text-align: center;
-  line-height: 2.5em;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: rgb(41, 40, 40);
   }
 }
 </style>
