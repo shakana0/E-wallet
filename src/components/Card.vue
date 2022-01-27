@@ -1,11 +1,11 @@
 <template>
   <div class="card">
-    <article :class="renderCard.vendor" @click="$emit('active', renderCard)">
+    <article :class="renderCard.vendor"  @click="$emit('active', renderCard)">
       <section class="top-logo">
         <div class="logo">
-          <div>
+          
             <img :src="wifiPath" alt="wifi-logo" width="44" height="44" />
-          </div>
+         
           <div>
             <img src="../assets/chip.svg" alt="chip-logo" />
           </div>
@@ -36,10 +36,6 @@
 <script>
 export default {
   props: ["renderCard"],
-  data() {
-    return {};
-  },
-  methods: {},
   computed: {
     logoPath() {
       if (!this.renderCard.vendor) {
@@ -122,7 +118,7 @@ article {
   width: 400px;
   height: 250px;
   background-color: rgba(235, 235, 235, 0.472);
-  margin-top: 3rem;
+  // margin-top: 3rem;
 
   .top-logo {
     display: flex;

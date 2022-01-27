@@ -44,7 +44,7 @@
 
       <select name="dropdown" id="" v-model="cardInfo.vendor">
         <option v-for="vendor in vendorArray" :key="vendor" :value="vendor">
-          {{ vendor.split("").reverse().join("") }}
+          {{ vendor}}
         </option>
       </select>
       <button>Add Card</button>

@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <nav>
-      <a @click="currentView = 'home'">Home</a>
-      <a @click="currentView = 'add-card'">Add New Card</a>
-    </nav>
     <AddNewCard
       v-if="currentView == 'add-card'"
       @submittedCard="addCardToList"
@@ -71,21 +67,6 @@ $activeColor: rgba(235, 235, 235, 0.384);
   }
   p {
     font-family: "PT Mono', monospace", sans-serif;
-  }
-  nav {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    a {
-      cursor: pointer;
-      padding: 1rem;
-      font-weight: 800;
-      font-size: 1.2rem;
-
-      &:hover {
-        background-color: $activeColor;
-      }
-    }
   }
 }
 </style>
