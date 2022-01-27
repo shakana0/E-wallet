@@ -72,6 +72,39 @@ export default {
         vendor: "",
       },
       vendorArray: ["bitcoin", "blockchain", "evil", "ninja"],
+      validChar: [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "å",
+        "ä",
+        "ö",
+        " "
+      ],
+      validNum: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     };
   },
   methods: {
@@ -80,12 +113,24 @@ export default {
       this.$emit("changePage");
     },
     formValidation() {
-        this.errors = [];
-       if (this.cardInfo.cardNumber === "") {
+      this.errors = [];
+
+      if (this.cardInfo.cardNumber === "") {
         this.errors.push("Card number required");
       }
-       if (this.cardInfo.cardHolder === "") {
+      for (let i = 0; i < this.cardInfo.cardNumber.length; i++) {
+        if (!this.validNum.includes(this.cardInfo.cardNumber[i])) {
+          this.errors.push("Invalid character in chard number");
+        }
+      }
+
+      if (this.cardInfo.cardHolder === "") {
         this.errors.push("Card holder name required");
+      }
+      for (let i = 0; i < this.cardInfo.cardHolder.length; i++) {
+        if (!this.validChar.includes(this.cardInfo.cardHolder[i])) {
+          this.errors.push("Invalid character in chard holder name");
+        }
       }
       if (this.cardInfo.expireMonth === "") {
         this.errors.push("Month required");
@@ -108,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h3{
+h3 {
   color: red;
 }
 .register-wrapper {
