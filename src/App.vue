@@ -30,6 +30,15 @@ export default {
       this.currentView = "add-card";
     },
     addCardToList(cardInfo) {
+      console.log(this.cardList);
+      for (let card in this.cardList) {
+        console.log(card);
+
+        // if (card.cardNumber === cardInfo.cardNumber) {
+        //   console.log("we already have this card");
+        // }
+      }
+
       this.cardList.push(cardInfo);
       this.persist();
     },
