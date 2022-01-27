@@ -2,7 +2,10 @@
   <div class="register-wrapper" v-if="currentView == 'add-card'">
     <h1>ADD A NEW CARD BANK</h1>
     <Card :renderCard="cardInfo" />
-    <form @submit.prevent="submitCard">
+    <div v-for="error in errors" :key="error">
+      <h3>{{ error }}</h3>
+    </div>
+    <form @submit.prevent="formValidation">
       <label for="CARD NUMBER">CARD NUMBER</label>
       <input
         type="text"
@@ -44,7 +47,7 @@
 
       <select name="dropdown" id="" v-model="cardInfo.vendor">
         <option v-for="vendor in vendorArray" :key="vendor" :value="vendor">
-          {{ vendor}}
+          {{ vendor }}
         </option>
       </select>
       <button>Add Card</button>
@@ -58,6 +61,7 @@ export default {
   components: { Card },
   data() {
     return {
+      errors: [],
       currentView: "add-card",
       cardInfo: {
         cardNumber: "",
@@ -75,11 +79,38 @@ export default {
       this.$emit("submitCard", this.cardInfo);
       this.$emit("changePage");
     },
+    formValidation() {
+        this.errors = [];
+       if (this.cardInfo.cardNumber === "") {
+        this.errors.push("Card number required");
+      }
+       if (this.cardInfo.cardHolder === "") {
+        this.errors.push("Card holder name required");
+      }
+      if (this.cardInfo.expireMonth === "") {
+        this.errors.push("Month required");
+      }
+      if (this.cardInfo.expireYear === "") {
+        this.errors.push("Year required");
+      }
+      if (this.cardInfo.CVC === "") {
+        this.errors.push("CVC required");
+      }
+      if (this.cardInfo.vendor === "") {
+        this.errors.push("Vendor required");
+      }
+      if (!this.errors.length) {
+        this.submitCard();
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+h3{
+  color: red;
+}
 .register-wrapper {
   h1 {
     margin-top: 5rem;
