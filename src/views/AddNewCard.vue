@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <main>
     <RegisterCard @submitCard="submittedCard" 
     @changePage="$emit('changePage')"
     :cardList="cardList"
      />
-  </div>
+  </main>
 </template>
 
 <script>

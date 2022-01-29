@@ -1,35 +1,34 @@
 <template>
   <div class="home">
     <h1>E-WALLET</h1>
-    <div class="active-card" v-if="showActive == true">
+    <header class="active-card" v-if="showActive == true">
       <p>Active Card</p>
       <Card :renderCard="activeCard" />
-      <button
-        class="remove"
-        @click="
-          $emit('removeCard', activeCard),
-            (activeCard = cardArray[cardArray.length - 1])
-        "
-      >
-        Remove
-      </button>
-    </div>
+      <button class="remove" @click="showDialog = true">Remove</button>
+    </header>
 
-    <div class="remove-dialog" v-if="showActive == true">
+    <article class="remove-dialog" v-if="showDialog == true">
       <p>Are you sure you want to remove card?</p>
       <div>
-        <button>Yes</button>
-        <button>No</button>
+        <button
+          @click="
+            $emit('removeCard', activeCard),
+              (activeCard = cardArray[cardArray.length - 1])
+          "
+        >
+          Yes
+        </button>
+        <button v-on:click="showDialog = false">No</button>
       </div>
-    </div>
-    <div class="wallet-wrapper">
+    </article>
+    <main class="wallet-wrapper">
       <Card
         v-for="card in cardArray"
         :renderCard="card"
         :key="card.cardNumber"
         @active="renderActiveCard"
       />
-    </div>
+    </main>
     <button @click="$emit('changePage')">Add New Card</button>
   </div>
 </template>
@@ -43,6 +42,7 @@ export default {
     return {
       activeCard: {},
       showActive: false,
+      showDialog: false,
     };
   },
   methods: {
@@ -51,6 +51,9 @@ export default {
       this.showActive = true;
     },
   },
+  computed:{
+
+  }
 };
 </script>
 
@@ -104,9 +107,7 @@ button.remove {
   border: 2px solid black;
   box-shadow: 5px 3px 15px -3px #737373;
   background-color: white;
-  // position: absolute;
-  // top: 35%;
-  // left: -70%
+  margin: 1rem  0 1rem 12% ;
   div {
     margin: 4rem 2rem;
     display: flex;

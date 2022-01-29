@@ -1,11 +1,10 @@
 <template>
   <div class="card">
-    <article :class="renderCard.vendor"  @click="$emit('active', renderCard)">
+    <article :class="renderCard.vendor" @click="$emit('active', renderCard)">
       <section class="top-logo">
         <div class="logo">
-          
-            <img :src="wifiPath" alt="wifi-logo" width="44" height="44" />
-         
+          <img :src="wifiPath" alt="wifi-logo" width="44" height="44" />
+
           <div>
             <img src="../assets/chip.svg" alt="chip-logo" />
           </div>
@@ -14,8 +13,7 @@
           <img width="50" :src="logoPath" alt="vendor-logo" />
         </div>
       </section>
-
-      <div class="card-number">
+      <div class="card-num">
         <p>{{ checkCardNum }}</p>
       </div>
       <section class="bottom-section">
@@ -65,10 +63,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.close {
-  background-color: transparent;
-  border: none;
-}
 .evil {
   background: linear-gradient(
       248.3deg,
@@ -118,8 +112,6 @@ article {
   width: 400px;
   height: 250px;
   background-color: rgba(235, 235, 235, 0.472);
-  // margin-top: 3rem;
-
   .top-logo {
     display: flex;
     justify-content: space-between;

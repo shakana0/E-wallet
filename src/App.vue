@@ -39,8 +39,8 @@ export default {
       this.currentView = "home";
     },
     removeCard(index) {
-      this.cardList.splice(this.cardList.indexOf(index), 1);
-      this.persist();
+        this.cardList.splice(this.cardList.indexOf(index), 1);
+        this.persist();
     },
     persist() {
       localStorage.setItem("cards", JSON.stringify(this.cardList));
