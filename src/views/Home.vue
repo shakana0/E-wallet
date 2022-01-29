@@ -4,8 +4,24 @@
     <div class="active-card" v-if="showActive == true">
       <p>Active Card</p>
       <Card :renderCard="activeCard" />
+      <button
+        class="remove"
+        @click="
+          $emit('removeCard', activeCard),
+            (activeCard = cardArray[cardArray.length - 1])
+        "
+      >
+        Remove
+      </button>
     </div>
 
+    <div class="remove-dialog" v-if="showActive == true">
+      <p>Are you sure you want to remove card?</p>
+      <div>
+        <button>Yes</button>
+        <button>No</button>
+      </div>
+    </div>
     <div class="wallet-wrapper">
       <Card
         v-for="card in cardArray"
@@ -55,15 +71,6 @@ h1 {
   grid-auto-rows: 4rem;
   margin-top: 3rem;
 }
-.active-card button {
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  top: 33.5%;
-  left: 22%;
-  color: rgb(207, 2, 2);
-  font-size: 2.5rem;
-}
 button {
   margin-top: 20rem;
   padding: 0 140px;
@@ -76,6 +83,42 @@ button {
 
   &:hover {
     background-color: rgb(41, 40, 40);
+  }
+}
+button.remove {
+  background-color: rgb(248, 68, 68);
+  color: white;
+  padding: 0 50px;
+  margin-left: 30%;
+  margin-top: 3rem;
+  box-shadow: 5px 3px 15px -3px #737373;
+
+  &:hover {
+    background-color: rgb(41, 40, 40);
+  }
+}
+
+.remove-dialog {
+  width: 300px;
+  height: 200px;
+  border: 2px solid black;
+  box-shadow: 5px 3px 15px -3px #737373;
+  background-color: white;
+  // position: absolute;
+  // top: 35%;
+  // left: -70%
+  div {
+    margin: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    padding: 0 20px;
+    margin: 1rem;
+    &:hover {
+      background-color: red;
+    }
   }
 }
 </style>

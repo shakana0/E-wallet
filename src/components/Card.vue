@@ -28,7 +28,7 @@
           <p>{{ renderCard.expireMonth }} / {{ renderCard.expireYear }}</p>
         </div>
       </section>
-      <p class="cvc">{{ renderCard.CVC }}</p>
+      <!-- <p class="cvc">{{ renderCard.CVC }}</p> -->
     </article>
   </div>
 </template>

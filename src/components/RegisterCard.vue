@@ -59,6 +59,7 @@
 import Card from "./Card.vue";
 export default {
   components: { Card },
+  props:['cardList'],
   data() {
     return {
       errors: [],
@@ -102,7 +103,7 @@ export default {
         "å",
         "ä",
         "ö",
-        " "
+        " ",
       ],
       validNum: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     };
@@ -143,6 +144,11 @@ export default {
       }
       if (this.cardInfo.vendor === "") {
         this.errors.push("Vendor required");
+      }
+      for (const card of this.cardList) {
+        if(card.cardNumber == this.cardInfo.cardNumber){
+          this.errors.push("This card number already exists");
+        }
       }
       if (!this.errors.length) {
         this.submitCard();

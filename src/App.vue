@@ -4,12 +4,14 @@
       v-if="currentView == 'add-card'"
       @submittedCard="addCardToList"
       @changePage="homeView"
+      :cardList="cardList"
     />
 
     <Home
       v-else-if="currentView == 'home'"
       :cardArray="cardList"
       @changePage="addCardView"
+      @removeCard="removeCard"
     />
   </div>
 </template>
@@ -30,22 +32,16 @@ export default {
       this.currentView = "add-card";
     },
     addCardToList(cardInfo) {
-      console.log(this.cardList);
-      for (let card in this.cardList) {
-        console.log(card);
-
-        // if (card.cardNumber === cardInfo.cardNumber) {
-        //   console.log("we already have this card");
-        // }
-      }
-
       this.cardList.push(cardInfo);
       this.persist();
     },
     homeView() {
       this.currentView = "home";
     },
-
+    removeCard(index) {
+      this.cardList.splice(this.cardList.indexOf(index), 1);
+      this.persist();
+    },
     persist() {
       localStorage.setItem("cards", JSON.stringify(this.cardList));
     },
