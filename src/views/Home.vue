@@ -51,9 +51,7 @@ export default {
       this.showActive = true;
     },
   },
-  computed:{
-
-  }
+  computed: {},
 };
 </script>
 
@@ -73,9 +71,9 @@ h1 {
   display: grid;
   grid-auto-rows: 4rem;
   margin-top: 3rem;
+  margin-bottom: 20rem;
 }
 button {
-  margin-top: 20rem;
   padding: 0 140px;
   color: white;
   background-color: black;
@@ -107,7 +105,7 @@ button.remove {
   border: 2px solid black;
   box-shadow: 5px 3px 15px -3px #737373;
   background-color: white;
-  margin: 1rem  0 1rem 12% ;
+  margin: 1rem 0 1rem 12%;
   div {
     margin: 4rem 2rem;
     display: flex;

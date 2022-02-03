@@ -1,5 +1,4 @@
 <template>
-  <div class="card">
     <article :class="renderCard.vendor" @click="$emit('active', renderCard)">
       <section class="top-logo">
         <div class="logo">
@@ -28,7 +27,6 @@
       </section>
       <!-- <p class="cvc">{{ renderCard.CVC }}</p> -->
     </article>
-  </div>
 </template>
 
 <script>
