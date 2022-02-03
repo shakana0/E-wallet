@@ -42,7 +42,12 @@
       </section>
 
       <label for="CVC">CVC</label>
-      <input type="text" placeholder="CCV" v-model="cardInfo.CVC" />
+      <input
+        type="text"
+        placeholder="CCV"
+        v-model="cardInfo.CVC"
+        maxlength="3"
+      />
       <label for="VENDOR">VENDOR</label>
 
       <select name="dropdown" id="" v-model="cardInfo.vendor">
@@ -59,7 +64,7 @@
 import Card from "./Card.vue";
 export default {
   components: { Card },
-  props:['cardList'],
+  props: ["cardList"],
   data() {
     return {
       errors: [],
@@ -119,6 +124,9 @@ export default {
       if (this.cardInfo.cardNumber === "") {
         this.errors.push("Card number required");
       }
+       if (this.cardInfo.cardNumber.length < 16) {
+        this.errors.push("Card number must contain 16 characters");
+      }
       for (let i = 0; i < this.cardInfo.cardNumber.length; i++) {
         if (!this.validNum.includes(this.cardInfo.cardNumber[i])) {
           this.errors.push("Invalid character in chard number");
@@ -146,7 +154,7 @@ export default {
         this.errors.push("Vendor required");
       }
       for (const card of this.cardList) {
-        if(card.cardNumber == this.cardInfo.cardNumber){
+        if (card.cardNumber == this.cardInfo.cardNumber) {
           this.errors.push("This card number already exists");
         }
       }
